@@ -1,0 +1,7 @@
+{
+    "name": "battlecon",
+    "description": "A BATTLEFIELD layer on node.js",
+    "author": "Daniel Wirtz <dcode@dcode.io>",
+    "version": "0.1.0",
+    "main": "src/BattleCon.js"
+}

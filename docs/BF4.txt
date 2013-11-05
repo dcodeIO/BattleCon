@@ -1,0 +1,99 @@
+MapList Commands:
+
+mapList.load Load list of maps from disk
+mapList.save Save list of maps to disk
+mapList.add Insert map at specified offset in map list
+mapList.remove Remove specified map from map list
+mapList.clear Clear map list
+mapList.list Returns entire map list
+mapList.setNextMapIndex Set which map to switch to at end of current round
+mapList.getMapIndices Get indices for current & next map
+mapList.getRounds Get current round and number of rounds
+mapList.endRound End current round, declaring the specified team as winners
+mapList.runNextRound Abort current round and move on to next
+mapList.restartRound Restart current round
+mapList.availableMaps Currently broken!
+
+Basic Commands:
+
+login.plainText Attempt to login to game server with password
+login.hashed Retrieves the salt, used in the hashed password login process
+login.hashed Sends a hashed password to the server, in an attempt to log in
+serverinfo Query for brief server info
+admin.help Report which commands the server knows about
+logout Logout from game server
+quit Disconnect from server version Reports game server type, and build ID
+listPlayers Return list of a group of players on the server, without GUIDs
+
+Admin Commands:
+
+admin.eventsEnabled Set whether or not the server will send events to the current connection
+admin.password Set the admin password for the server
+admin.say Send a chat message to a group of players
+admin.kickPlayer Kick player from server
+admin.listPlayers Return list of a group of players on the server
+admin.movePlayer Move a player to another team and squad
+admin.killPlayer Kill a player without scoring effects
+punkBuster.isActive Returns whether or not PunkBuster currently is active
+punkBuster.activate Attempt to activate PunkBuster if it is not currently running
+punkBuster.pb_sv_command Send a raw PunkBuster command to the PunkBuster server
+gameAdmin.load Load list of game admins from file
+gameAdmin.save Save list of game admins to file
+gameAdmin.add Add player to list of game admins
+gameAdmin.remove Remove player from list of game admins
+gameAdmin.list Return list of game admins
+
+Ban List:
+
+banList.load Load list of banned players/IPs/GUIDs from file
+banList.save Save list of banned players/IPs/GUIDs to file
+banList.add Add player/IP/GUID to ban list for a certain amount of time
+banList.remove Remove player/IP/GUID from ban list
+banList.clear Clears ban list
+banList.list Return part of the list of banned players/IPs/GUIDs
+
+Reserved Slots:
+
+reservedSlotsList.load Load list of reserved soldier names from file
+reservedSlotsList.save Save list of reserved soldier names to file
+reservedSlotsList.add Add to list of players who can use the reserved slots
+reservedSlotsList.remove Remove from list of players who can use the reserved slots
+reservedSlotsList.clear Clear reserved slots list
+reservedSlotsList.list Retrieve list of players who can utilize the reserved slots
+
+Server Variables:
+
+vars.serverName Set the server name
+vars.gamePassword Set the game password for the server
+vars.autoBalance Set if the server should autobalance
+vars.roundStartPlayerCount Set minimum numbers of players to go from preround to in-round
+vars.roundRestartPlayerCount Set minimum numbers of players to go from in-round to preround
+vars.serverMessage TODO: document
+vars.killRotation TODO: document
+vars.friendlyFire Set if the server should allow team damage
+vars.maxPlayers Set desired maximum number of players
+vars.bannerUrl TODO: document
+vars.serverDescription TODO: document
+vars.killCam Set if killcam is enabled
+vars.miniMap Set if minimap is enabled vars.hud Set if HUD is enabled
+vars.crossHair Set if crosshair for all weapons is enabled
+vars.3dSpotting Set if spotted targets are visible in the 3d-world
+vars.miniMapSpotting Set if spotted targets are visible on the minimap
+vars.nameTag Set if nametags should be displayed
+vars.3pCam Set if allowing to toggle to third person vehicle cameras
+vars.regenerateHealth Set if health regeneration should be active
+vars.teamKillCountForKick Set number of teamkills allowed during a round
+vars.teamKillValueForKick Set max kill-value allowed for a player before he/she is kicked
+vars.teamKillValueIncrease Set kill-value increase for a teamkill
+vars.teamKillValueDecreasePerSecond Set kill-value decrease per second
+vars.teamKillKickForBan Set number of team-kill kicks that will lead to permaban
+vars.idleTimeout Set idle timeout
+vars.idleBanRounds Set how many rounds idle timeout should ban (if at all)
+vars.vehicleSpawnAllowed Set whether vehicles should spawn in-game
+vars.vehicleSpawnDelay Set vehicle spawn delay scale factor
+vars.soldierHealth Set soldier max health scale factor
+vars.playerRespawnTime Set player respawn time scale factor
+vars.playerManDownTime Set player man-down time scale factor
+vars.bulletDamage Set bullet damage scale factor
+vars.onlySquadLeaderSpawn Set if players can only spawn on their squad leader
+vars.roundsPerMap TODO: investigate this 
