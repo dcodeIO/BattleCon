@@ -15,12 +15,14 @@ Usage
 var BattleCon = require("battlecon"),
     bc = new BattleCon("host", port, "pass").use("core");
     
-bc.exec("version", function(err, res) {
-    if (err) {
-        console.log("Error: "+err);
-        return;
-    }
-    console.log("version:", res);
+bc.on("login", function() {
+    bc.exec("version", function(err, res) {
+        if (err) {
+            console.log("Error: "+err);
+            return;
+        }
+        console.log("version:", res);
+    });
 });
 
 bc.connect(); // Connects and logs in

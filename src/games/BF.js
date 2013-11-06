@@ -15,7 +15,7 @@
  */
 
 /**
- * Loads the BF common plugin.
+ * Loads the BF (common) module.
  * @param {!BattleCon} bc
  */
 module.exports = function(bc) {

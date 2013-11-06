@@ -17,7 +17,7 @@
 var crypto = require("crypto");
 
 /**
- * Loads the core (Frostbyte) plugin.
+ * Loads the core Frostbite module.
  * @param {!BattleCon} bc
  */
 module.exports = function(bc) {

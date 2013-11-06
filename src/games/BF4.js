@@ -15,7 +15,7 @@
  */
 
 /**
- * Loads the BF4 plugin.
+ * Loads the BF4 module.
  * @param {!BattleCon} bc
  */
 module.exports = function(bc) {

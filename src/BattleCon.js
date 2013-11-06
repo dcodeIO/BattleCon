@@ -63,16 +63,16 @@ BattleCon.prototype = Object.create(events.EventEmitter.prototype);
 
 /**
  * Loads a game module.
- * @param {string|function(!BattleCon)} plugin Plugin to use
+ * @param {string|function(!BattleCon)} gameModule Plugin to use
  * @param {*=} options Module options
  * @returns {!BattleCon} this
  * @throws {Error} If the module could not be loaded
  */
-BattleCon.prototype.use = function(plugin, options) {
-    if (typeof plugin === 'function') {
-        plugin(this, options);
-    } else if (typeof plugin === 'string' && /^[a-zA-Z0-9_\-]+$/.test(plugin)) {
-        require("./games/"+plugin+".js")(this, options);
+BattleCon.prototype.use = function(gameModule, options) {
+    if (typeof gameModule === 'function') {
+        gameModule(this, options);
+    } else if (typeof gameModule === 'string' && /^[a-zA-Z0-9_\-]+$/.test(gameModule)) {
+        require("./games/"+gameModule+".js")(this, options);
     }
     return this;
 };
