@@ -6,10 +6,8 @@ platform.
 With BattleCon it's easy to create your very own server management interface, like automatic map votings, auto team
 balancing, live player stats and more.
 
-Core
-----
-The core module implements common commands used between Frostbite-driven games, like logging in and out, version and
-server info querying.
+Usage
+-----
 
 #### Executing commands:
 
@@ -30,7 +28,6 @@ bc.connect(); // Connects and logs in
 
 #### Processing (raw) server events:
 
-
 ```js
 ...
 bc.on("event", function(evt) {
@@ -38,6 +35,10 @@ bc.on("event", function(evt) {
 });
 ```
 
+Core
+----
+The core module implements common commands used between Frostbite-driven games, like logging in and out, version and
+server info querying.
 
 Modules
 -------
@@ -52,12 +53,14 @@ var bc = new BattleCon("host", port, "pass").use("BF4");
 bc.connect();
 ```
 
+Currently, [the game modules](https://github.com/dcodeIO/BattleCon/tree/master/src/games) are quite basic and provide
+basic functionality only. Feel free to extend them and send me a pull request!
+
 Examples
 --------
 There is a simple example of how to use BattleCon, like reacting to server events and issuing commands:
 
 * [example.js](https://github.com/dcodeIO/BattleCon/blob/master/example.js)
-
 
 License
 -------
