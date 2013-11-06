@@ -16,7 +16,6 @@
 
 var events = require("events"),
     net = require("net"),
-    crypto = require("crypto"),
     Message = require("./BattleCon/Message.js");
 
 /**
@@ -45,12 +44,14 @@ var BattleCon = function(host, port, pass) {
 };
 
 // Event                   | Meaning
-// ------------------------|-----------------------
+// ------------------------|------------------------------------
 // connect                 | Connection established
 // login                   | Successfully logged in
 // close                   | Connection closed
 // error                   | Error caught
 // event                   | Raw server event
+// message                 | Raw server response
+// exec                    | Raw client request (throw to abort)
 
 /**
  * @alias {BattleCon.Message}
@@ -61,25 +62,35 @@ BattleCon.Message = Message;
 BattleCon.prototype = Object.create(events.EventEmitter.prototype);
 
 /**
- * Loads a plugin.
- * @param {string|function(BattleCon)} plugin Plugin to use
+ * Loads a game module.
+ * @param {string|function(!BattleCon)} plugin Plugin to use
+ * @returns {!BattleCon} this
+ * @throws {Error} If the module could not be loaded
  */
 BattleCon.prototype.use = function(plugin) {
     if (typeof plugin === 'function') {
         plugin(this);
-        return true;
-    } else {
-
+    } else if (typeof plugin === 'string' && /^[a-zA-Z0-9_\-]+$/.test(plugin)) {
+        require("./games/"+plugin+".js")(this);
     }
+    return this;
 };
 
 /**
  * Connects and logs in to the server.
+ * @param {function(Error)=} callback Callback
  */
-BattleCon.prototype.connect = function() {
+BattleCon.prototype.connect = function(callback) {
     if (this.sock !== null) return;
     this.sock = new net.Socket();
-    this.sock.on("error", this.emit.bind(this, "error"));
+    var cbCalled = false;
+    this.sock.on("error", function(err) {
+        if (!this.loggedIn && callback && !cbCalled) {
+            cbCalled = true;
+            callback(err);
+        }
+        this.emit("error", err);
+    }.bind(this));
     this.sock.on("close", function() {
         this.emit("close");
         this.sock = null;
@@ -87,29 +98,7 @@ BattleCon.prototype.connect = function() {
     this.sock.connect(this.port, this.host, function() {
         this.emit("connect");
         this.sock.on("data", this._gather.bind(this));
-        
-        // Log in
-        this.exec("login.hashed", function(err, res) {
-            if (err) {
-                this.sock.end();
-                this.sock = null;
-                this.emit("error", err);
-                return;
-            }
-            var md = crypto.createHash("md5");
-            md.update(res[0], "hex");
-            md.update(this.pass, "utf8");
-            this.exec("login.hashed "+md.digest("hex").toUpperCase(), function(err, res) {
-                if (err) {
-                    this.sock.end();
-                    this.sock = null;
-                    this.emit("error", err);
-                    return;
-                }
-                this.loggedIn = true;
-                this.emit("login");
-            }.bind(this));
-        }.bind(this));
+        if (this.login) this.login(callback);
     }.bind(this));
 };
 
@@ -153,12 +142,10 @@ BattleCon.prototype._process = function(msg) {
         this.emit("error", "empty message received");
         return;
     }
-
-    // If not logged in, check the result
-    if (msg.isFromServer()) { // Handle event (transforms punkBuster.onMessage to punkbuster.message etc.)
-        this.emit("event", msg); // Raw event
-        console.log("event", msg);
-    } else { // Lookup the callback
+    if (msg.isFromServer()) {
+        this.emit("event", /* raw event */ msg);
+    } else {
+        this.emit("message", /* raw message */ msg);
         if (this.cbs.hasOwnProperty("cb"+msg.id)) {
             var callback = this.cbs["cb"+msg.id];
             delete this.cbs["cb"+msg.id];
@@ -167,8 +154,6 @@ BattleCon.prototype._process = function(msg) {
             } else {
                 callback(new Error(msg.data.join(' ')));
             }
-        } else {
-            console.log("no cb:", msg);
         }
     }
 };
@@ -182,6 +167,11 @@ BattleCon.prototype.exec = function(command, callback) {
     var msg = new Message(this.id, 0, command);
     if (typeof callback === 'function') {
         this.cbs["cb"+this.id] = callback;
+    }
+    try {
+        this.emit("exec", msg); // May throw to abort
+    } catch (aborted) {
+        return;
     }
     this.sock.write(msg.encode());
     this.id = (this.id+1)&0x3fffffff;

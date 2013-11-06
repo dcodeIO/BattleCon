@@ -22,7 +22,8 @@ login.hashed Sends a hashed password to the server, in an attempt to log in
 serverinfo Query for brief server info
 admin.help Report which commands the server knows about
 logout Logout from game server
-quit Disconnect from server version Reports game server type, and build ID
+quit Disconnect from server
+version Reports game server type, and build ID
 listPlayers Return list of a group of players on the server, without GUIDs
 
 Admin Commands:

@@ -1,7 +1,19 @@
 {
     "name": "battlecon",
-    "description": "A BATTLEFIELD layer on node.js",
+    "description": "A Battlefield RCON layer on node.js",
     "author": "Daniel Wirtz <dcode@dcode.io>",
-    "version": "0.1.0",
-    "main": "src/BattleCon.js"
+    "version": "0.2.0",
+    "main": "src/BattleCon.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dcodeIO/BattleCon.git"
+    },
+    "bugs": {
+        "url": "https://github.com/dcodeIO/BattleCon/issues"
+    },
+    "keywords": ["rcon", "utility", "frostbite", "battlefield"],
+    "license": "Apache-2.0",
+    "engines": {
+        "node": ">=0.6"
+    }
 }
