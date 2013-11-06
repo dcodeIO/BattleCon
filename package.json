@@ -1,6 +1,6 @@
 {
     "name": "battlecon",
-    "description": "A Battlefield RCON layer on node.js",
+    "description": "A Battlefield / Frostbite engine RCON layer on node.js",
     "author": "Daniel Wirtz <dcode@dcode.io>",
     "version": "0.2.0",
     "main": "src/BattleCon.js",
