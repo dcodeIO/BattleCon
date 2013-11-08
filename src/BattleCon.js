@@ -44,9 +44,10 @@ var BattleCon = function(host, port, pass) {
 };
 
 // Event                   | Meaning
-// ------------------------|------------------------------------
+// ------------------------|----------------------------------------
 // connect                 | Connection established
 // login                   | Successfully logged in
+// ready                   | Ready to operate (after login), core.js
 // close                   | Connection closed
 // error                   | Error caught
 // event                   | Raw server event
@@ -180,13 +181,15 @@ BattleCon.prototype.exec = function(command, callback) {
 
 /**
  * Tabulates a result containing columns and rows.
- * @param {!Array.<string>} res
+ * @param {!Array.<string>} res Result to tabulate
+ * @param {number=} offset Offset to start at, defaults to 0
  * @returns {!Array.<Object.<string,string>>}
  */
-BattleCon.tabulate = function(res) {
-    var nColumns = parseInt(res[0], 10),
+BattleCon.tabulate = function(res, offset) {
+    if (!offset) offset = 0;
+    var nColumns = parseInt(res[offset], 10),
         columns = [];
-    for (var i=1; i<=nColumns; i++) {
+    for (var i=offset+1; i<=nColumns; i++) {
         columns.push(res[i]);
     }
     var nRows = parseInt(res[i], 10),

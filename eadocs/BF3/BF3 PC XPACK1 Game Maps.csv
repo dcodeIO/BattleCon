@@ -1,0 +1,5 @@
+Engine name;Human-readable name;Game modes
+XP1_001;Strike At Karkand;ConquestAssaultLarge0,ConquestAssaultSmall0,ConquestAssaultSmall1,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+XP1_002;Gulf of Oman;ConquestLarge0,ConquestSmall0,ConquestAssaultSmall0,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+XP1_003;Sharqi Peninsula;ConquestAssaultLarge0,ConquestAssaultSmall0,ConquestAssaultSmall1,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+XP1_004;Wake Island;ConquestAssaultLarge0,ConquestAssaultSmall0,ConquestAssaultSmall1,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0

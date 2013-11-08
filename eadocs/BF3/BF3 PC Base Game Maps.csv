@@ -1,0 +1,10 @@
+Engine name;Human-readable name;Game modes
+MP_001;Grand Bazaar;ConquestLarge0,ConquestSmall0,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+MP_003;Teheran Highway;ConquestLarge0,ConquestSmall0,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+MP_007;Caspian Border;ConquestLarge0,ConquestSmall0,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+MP_011;Seine Crossing;ConquestLarge0,ConquestSmall0,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+MP_012;Operation Firestorm;ConquestLarge0,ConquestSmall0,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+MP_013;Damavand Peak;ConquestLarge0,ConquestSmall0,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+MP_017;Noshahr Canals;ConquestLarge0,ConquestSmall0,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+MP_018;Kharg Island;ConquestLarge0,ConquestSmall0,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0
+MP_Subway;Operation Metro;ConquestLarge0,ConquestSmall0,RushLarge0,SquadRush0,SquadDeathMatch0,TeamDeathMatch0

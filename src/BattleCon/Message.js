@@ -66,12 +66,12 @@ Message.prototype.encode = function() {
         dataLength += part.length;
     }
     // Then build the packet
-    var pack = new Buffer(dataLength+12);
-    pack.writeUInt32LE(((this.flags << 30) & 0xC0000000) | (this.id & 0x3fffffff), 0); // Header
-    pack.writeUInt32LE(pack.length, 4); // Overall packet size
-    pack.writeUInt32LE(data.length, 8); // Data count
-    Buffer.concat(data).copy(pack, 12); // Data
-    return pack;
+    var buf = new Buffer(dataLength+12);
+    buf.writeUInt32LE(((this.flags << 30) & 0xC0000000) | (this.id & 0x3fffffff), 0); // Header
+    buf.writeUInt32LE(buf.length, 4); // Overall packet size
+    buf.writeUInt32LE(data.length, 8); // Data count
+    Buffer.concat(data).copy(buf, 12); // Data
+    return buf;
 };
 
 /**
@@ -92,21 +92,21 @@ Message.prototype.isFromServer = function() {
 
 /**
  * Decodes a Message.
- * @param {!Buffer} pack Buffer to decode
+ * @param {!Buffer} buf Buffer to decode
  * @returns {!Message}
  * @throws {Error} If the buffer cannot be decoded
  */
-Message.decode = function(pack) {
-    var head = pack.readUInt32LE(0),
+Message.decode = function(buf) {
+    var head = buf.readUInt32LE(0),
         id = head & 0x3fffffff,
         flags = (head >> 30) & 0x3,
-        dataLength = pack.readUInt32LE(8),
+        dataLength = buf.readUInt32LE(8),
         data = [],
         offset = 12;
     for (var i=0; i<dataLength; i++) {
-        var len = pack.readUInt32LE(offset);
+        var len = buf.readUInt32LE(offset);
         offset += 4;
-        data.push(pack.slice(offset, offset+len).toString("utf8"));
+        data.push(buf.slice(offset, offset+len).toString("utf8"));
         offset += len+1;
     }    
     return new Message(id, flags, data);

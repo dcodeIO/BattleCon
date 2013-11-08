@@ -1,0 +1,3 @@
+SoldierName1
+SoldierName2
+SoldierName3

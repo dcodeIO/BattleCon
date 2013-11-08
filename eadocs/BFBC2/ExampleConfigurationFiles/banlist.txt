@@ -1,0 +1,10 @@
+guid
+EA_12345678123456781234567812345678
+perm
+212139960249
+Banned for not being a good sport
+name
+SoldierName
+seconds
+212139961246
+cool off for a bit please

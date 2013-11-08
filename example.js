@@ -1,23 +1,28 @@
 var BattleCon = require("./src/BattleCon.js"),
     config = require("./config.json"),
+    repl = require("repl"),
     bc = new BattleCon(config.host, config.port, config.pass).use("BF4");
 
 bc.on("connect", function() {
-    console.log("# Connected");
+    console.log("# Connected to "+bc.host+":"+bc.port);
 });
 
 bc.on("login", function() {
-    console.log("# Logged in");
+    console.log("# Login successful");
+});
+
+bc.on("ready", function() {
     
-    bc.version(function(err, game, version) {
-        if (err) return;
-        console.log("Server is running "+game+", version "+version);
+    // Execute raw commands:
+    
+    bc.exec("version", function(err, msg) {
+        console.log("# Server is running "+msg[0]+", version "+msg[1]);
     });
     
-    bc.help(function(err, commands) {
-        if (err) return;
-        console.log("There are "+commands.length+" available commands:");
-        console.log(commands);
+    // Execute module commands (core.js):
+    
+    bc.serverInfo(function(err, info) {
+        console.log("Server info:", info);
     });
     
     bc.listPlayers(function(err, players) {
@@ -27,12 +32,24 @@ bc.on("login", function() {
         }
     });
     
-    bc.serverInfo(function(err, info) {
-        console.log("Info:", info);
-    });
+    // Handle raw events:
     
     bc.on("event", function(msg) {
-        console.log("Event:", msg);
+        console.log("# "+msg.data.join(' '));
+    });
+    
+    // Handle module events (BF.js):
+    
+    bc.on("player.join", function(name, guid) {
+        console.log("# Player joined: "+name+" ("+guid+")");
+    });
+    
+    bc.on("player.leave", function(name, info) {
+        console.log("# Player left: "+name+" ("+info.guid+")");
+    });
+    
+    bc.on("player.chat", function(name, text, subset) {
+        console.log("# "+name+" -> "+subset.join(' ')+": "+text);
     });
 });
 
@@ -44,4 +61,4 @@ bc.on("error", function(err) {
     console.log("# Error: "+err.message, err.stack);
 });
 
-bc.connect();
+bc.connect(); // Connects and logs in

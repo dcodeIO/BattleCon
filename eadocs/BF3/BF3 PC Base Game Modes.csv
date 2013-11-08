@@ -1,0 +1,7 @@
+Engine Name;Human-Readable Name;Intended max player count
+ConquestLarge0;Conquest64;64
+ConquestSmall0;Conquest;32
+RushLarge0;Rush;32
+SquadRush0;Squad Rush;8
+SquadDeathMatch0;Squad Deathmatch;16
+TeamDeathMatch0;Team Deathmatch;24

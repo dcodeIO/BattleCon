@@ -1,0 +1,31 @@
+#################################################
+###### This is an example startup.txt
+
+# Set the name that the server will expose in the server browser
+vars.serverName "My Server"
+
+# Set URL for the server banner
+vars.bannerUrl "http://www.example.com/example.png"
+
+# Set server description (shown on the loading screen and in server info) - use "|" for line breaks
+vars.serverDescription "Welcome to my server|Stay a while, stay forever!"
+
+# Ranked mode on; this enforces PunkBuster on and game password off
+vars.ranked true
+
+# No friendly fire, please
+vars.friendlyFire false
+
+# Hardcore mode off
+vars.hardCore false
+
+# Profanity filter off, please
+vars.profanityFilter false
+
+# Set the initial spawn-timer to 30 seconds for all levels
+levelVars.set all startDelay 30
+
+# Increase tickets bleed speed by 20% on all Conquest levels
+levelVars.set gamemode CONQUEST ticketBleedSpeed 120
+
+

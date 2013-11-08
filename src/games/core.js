@@ -22,15 +22,42 @@ var crypto = require("crypto");
  */
 module.exports = function(bc) {
 
-    // Enable events
-    bc.on("login", function() {
-        bc.eventsEnabled(true, function(err, enabled) {});
-    });
+    /**
+     * Available commands.
+     * @type {Array.<string>}
+     */
+    bc.commands = [];
 
-    // Process events
-    bc.on("event", function(msg) {
-        var evt = msg.data[0].replace(/\.on[A-Z]/, function(s) { return "."+s.charAt(3).toLowerCase(); }).toLowerCase();
-        this.emit(evt, msg.data.slice(1));
+    /**
+     * Available variables.
+     * @type {Array.<string>}
+     */
+    bc.vars = [];
+
+    /**
+     * Server version.
+     * @type {Array.<string>}
+     */
+    bc.serverVersion = null;
+
+    bc.on("login", function() {
+        
+        // Enable events
+        bc.eventsEnabled(true, function(err, enabled) {});
+
+        // Get list of available commands / vars
+        bc.help(function(err, msg) {
+            if (err) return;
+            bc.commands = msg;
+            var vars = [];
+            for (var i=0; i<msg.length; i++) {
+                if (msg[i].substring(0, 5) === "vars.") {
+                    vars.push(msg[i]);
+                }
+            }
+            bc.vars = vars;
+            bc.emit("ready");
+        });
     });
 
     /**
@@ -44,6 +71,20 @@ module.exports = function(bc) {
                 return;
             }
             callback(null, /* game */ res[0], /* version */ res[1]);
+        });
+    };
+
+    /**
+     * Gets a list of available commands.
+     * @param {function(Error, Array.<string>=)} callback Callback
+     */
+    bc.help = function(callback) {
+        bc.exec("admin.help", function(err, res) {
+            if (err) {
+                callback(err);
+                return;
+            }
+            callback(null, res);
         });
     };
 
